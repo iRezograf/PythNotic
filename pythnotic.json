@@ -1,8 +1,1 @@
-{
-"first record":
-{"body": "3.this is example fo the note",
-"date": "2023-02-24 20.01.08"},
-"second record":
-{"body": "2. this is example for the note",
-"date": "2023-02-25 20.01.08"}
-}
+{"13": {"title": "first record", "body": "3.this is example fo the note", "date": "2023-02-24 20.01.08"}, "2": {"title": "second record", "body": "2. this is example for the note", "date": "2023-02-25 20.01.08"}}
