@@ -1,4 +1,6 @@
+import datetime
 import json
+
 
 
 
@@ -16,11 +18,9 @@ notes = {
         "date": "23.2.21 11:45"}
 }
  
-
-
 def save(pythnotic_name, save_mode):
     with open(pythnotic_name, mode=save_mode, encoding='utf-8') as file:
-        file.write(json.dumps(note, ensure_ascii=False))
+        file.write(json.dumps(notes, ensure_ascii=False))
 
 
 def load(l_file):
@@ -29,27 +29,55 @@ def load(l_file):
     return lst
 
 
-note = load(pythnotic_name)
 
-for n in note:
-    print (n)
+# for n in note:
+#     print (n)
+
+
+
+# print(notes.get('first record',0))
+# print(notes.get('second record',0))
+
+# print(notes.get('second record',0).get('body'))
+# print(notes.get('second record',0).get('date'))
+
+
+
+# print('----------------')
+# print(datetime.datetime.now().strftime("%Y-%m-%d %H.%M.%S"))
 
 
     
-print(note['second record'])
+# print(note['second record'])
+# print(note.get('second record',0))
 
-def show(pythnotic_name):
-    print(note)
+notes = load(pythnotic_name)
 
-def add(title, msg):
-    print(title,msg,"added")
+def show(notes):
+    sorted_notes = sorted(notes.items(), key=lambda x: x[1].get('date'),reverse = True)
+    for k,v in sorted_notes:
+        print('---------------------------------------------------------------------------')
+        print('title: ',k)
+        print('body: ', v.get('body'))
+        print('date: ', v.get('date'))
+
+def add(title, body):
+    notes[title] = {"body": body,
+        "date": datetime.datetime.now().strftime("%Y-%m-%d %H.%M.%S")}
+    print('\n---> note with title: "',title,'" is added\n')
     
-def delete(title,msg):
-    print(title,msg,"deleted")
+def delete(title):
+    if notes.get(title) != None: notes.pop(title)
+    print('\n---> note with title: "',title,'" is deleted\n')
+    print(sorted(notes.items(), key=lambda x: x[1].get('date')))
     
 def edit(title,msg):
     print(title,msg,"deleted")
     
+show(notes)
+delete('second record')
+add('4-th record', "это пример добавления треtьей строки")
+show(notes)
 
  
 # Opening JSON file
@@ -61,6 +89,7 @@ def edit(title,msg):
 #     # the index value of the list
 #     print(data['people1'][0])
      
+#     # for printing the klue pair of
 #     # for printing the key-value pair of
 #     # nested dictionary for loop can be used
 #     print("\nPrinting nested dictionary as a key-value pair\n")
@@ -72,3 +101,28 @@ def edit(title,msg):
 
 #сохранением, чтением, добавлением, редактированием и удалением заметок
 #python notes.py add --title "новая заметка" –msg "тело новой заметки"
+
+
+# dict.clear() - очищает словарь.
+
+# dict.copy() - возвращает копию словаря.
+
+# classmethod dict.fromkeys(seq[, value]) - создает словарь с ключами из seq и значением value (по умолчанию None).
+
+# dict.get(key[, default]) - возвращает значение ключа, но если его нет, не бросает исключение, а возвращает default (по умолчанию None).
+
+# dict.items() - возвращает пары (ключ, значение).
+
+# dict.keys() - возвращает ключи в словаре.
+
+# dict.pop(key[, default]) - удаляет ключ и возвращает значение.
+# Если ключа нет, возвращает default (по умолчанию бросает исключение).
+
+# dict.popitem() - удаляет и возвращает пару (ключ, значение). 
+# Если словарь пуст, бросает исключение KeyError. Помните, что словари неупорядочены.
+
+# dict.setdefault(key[, default]) - возвращает значение ключа, но если его нет, не бросает исключение, а создает ключ со значением default (по умолчанию None).
+
+# dict.update([other]) - обновляет словарь, добавляя пары (ключ, значение) из other. Существующие ключи перезаписываются. Возвращает None (не новый словарь!).
+
+# dict.values() - возвращает значения в словаре.
