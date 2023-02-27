@@ -27,7 +27,7 @@ def load(l_file):
 
 #notes = load(pythnotic_name)
 
-def show(notes):
+def show():
     sorted_notes = sorted(notes.items(), key=lambda x: x[1].get('date'),reverse = True)
     for k,v in sorted_notes:
         print('---------------------------------------------------------------------------')
@@ -37,10 +37,20 @@ def show(notes):
         print('date: ', v.get('date'))
         print('---------------------------------------------------------------------------')
 
-def add(id, title, body):
+def autoincrement_id():
+    sorted_notes = sorted(notes.items(), key=lambda x: int(x[0]),reverse = True)
+    for k,v in sorted_notes:
+        id = int(k)+1
+        break
+    return id
+
+def add():
+    id = autoincrement_id()
+    title = input("\n введите заголовок редактируемой записи ...:")
+    body = input("\n введите текст редактируемой записи ...:")
     notes[id] = {"title": title, "body": body,
         "date": datetime.datetime.now().strftime("%Y-%m-%d %H.%M.%S")}
-    print('\n---> note with title: "',title,'" is added\n')
+    show()
     
 def delete(id):
     if notes.get(id) != None: 
@@ -50,25 +60,33 @@ def delete(id):
         print('note with id=',id,'not found')
     print(sorted(notes.items(), key=lambda x: x[1].get('date')))
     
-# def edit(title,msg):
-#     print(title,msg,"deleted")
+def edit():
+    id = input("\n введите id редактируемой записи ...:")
+    print(notes[id].get('title'))
+    title = input("\n введите заголовок редактируемой записи ...:")
+    if "".__eq__(title):
+        title = notes.get(id).get('title')
+    print(notes.get(id).get('body'))
+    body = input("\n введите текст редактируемой записи ...:")
+    if "".__eq__(body):
+        body = notes[id].get('body')
+    notes[id] = {"title": title, "body": body,
+        "date": datetime.datetime.now().strftime("%Y-%m-%d %H.%M.%S")}
+    show()
 
 def dialog_help():
-    print("\nчтение - 1\nредактирование - 2\nдобавление - 3\nудаление заметок - 4\nсохранение - 5\nвыход без сохранения - 6")
+    print("\nчтение - 1\nредактирование - 2\nд2обавление - 3\nудаление заметок - 4\nсохранение - 5\nвыход без сохранения - 6")
     
 pythnotic_name = 'pythnotic.json'
 notes = load(pythnotic_name) 
 action = '1'   
 while action != '6':
     if action == '1':
-        show(notes)
+        show()
     if action == '2':
-        id = input("\n введите id редактируемой строки ...:")
-        print(notes[id].get('title'))
-        print(notes[id].get('body'))
-        #add(add(4,'3 record', "это пример добавления третьей строки"))
+        edit()
     if action == '3':
-        add(4,'3 record', "это пример добавления третьей строки")
+        add()
     if action == '4':
         delete(input("\n введите id удаляемой строки ...:"))
     if action == '5':
