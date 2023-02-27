@@ -92,11 +92,11 @@ while action != '6':
     if action == '5':
         save(pythnotic_name)        
     if action == '6':
-        save(pythnotic_name)
+        break
     dialog_help()  
-    action = input("\n Сделайте Ваш выбор ...:")
+    action = input("\nСделайте Ваш выбор ...:")
       
-
+print('Спасибо за работу. Приходите еще.')
 
 
 
